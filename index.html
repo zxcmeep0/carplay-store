@@ -5,170 +5,283 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CarPlay Wireless Adapter — Твій автомобіль без дротів</title>
     <style>
+        /* БАЗОВІ СТИЛІ ТА ШРИФТИ */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: #0b0b0c; /* Стильний темний преміум-фон */
+            color: #f5f5f7;
         }
         header {
-            background-color: #1a1a1a;
+            background-color: rgba(22, 22, 23, 0.8);
+            backdrop-filter: blur(10px);
             color: #fff;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #333;
         }
+        header h1 { margin: 0; font-size: 1.5rem; letter-spacing: 1px; }
+
         .container {
-            max-width: 800px;
-            margin: 40px auto;
-            background: #fff;
+            max-width: 650px;
+            margin: 30px auto;
+            background: #161617; /* Темна картка в стилі Apple Store */
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             text-align: center;
+            border: 1px solid #2d2d2f;
         }
-        h1 { margin: 0; font-size: 2.5rem; }
+        
+        h2 { font-size: 2rem; margin-top: 10px; color: #fff; }
+        .subtitle { color: #86868b; font-size: 1.1rem; margin-bottom: 25px; }
+
+        /* ЗОБРАЖЕННЯ ТОВАРУ */
         .product-image {
             width: 100%;
-            max-width: 400px;
+            max-width: 350px;
             height: auto;
-            border-radius: 8px;
+            border-radius: 12px;
+            margin: 10px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+        .product-image:hover {
+            transform: scale(1.03); /* Ефект наведення курсору */
+        }
+
+        /* ЦІНА */
+        .price-box {
             margin: 20px 0;
         }
-        .price {
-            font-size: 1.8rem;
-            color: #e63946;
-            font-weight: bold;
-            margin: 15px 0;
-        }
+        .old-price { text-decoration: line-through; color: #86868b; font-size: 1.2rem; }
+        .price { font-size: 2.2rem; color: #ff453a; font-weight: bold; margin-top: 5px; }
+
+        /* ПЕРЕВАГИ */
         .features {
             text-align: left;
-            margin: 20px auto;
+            margin: 30px auto;
             max-width: 500px;
-            padding-left: 20px;
+            list-style: none;
+            padding: 0;
         }
-        .features li { margin-bottom: 10px; font-size: 1.1rem; }
-        
+        .features li {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+        .features li span { margin-right: 12px; font-size: 1.2rem; }
+
+        /* БЛОК СУМІСНОСТІ */
+        .compatibility {
+            background: #1c1c1e;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 1px dashed #444;
+            font-size: 0.95rem;
+            color: #bfbfc3;
+        }
+
+        /* ФОРМА ЗАМОВЛЕННЯ */
         .order-form {
-            background-color: #f8f9fa;
+            background-color: #1c1c1e;
             padding: 25px;
-            border-radius: 8px;
+            border-radius: 14px;
             margin-top: 30px;
-            border: 1px solid #e9ecef;
+            border: 1px solid #2d2d2f;
             text-align: left;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
         }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.95rem; }
+        .order-form h3 { margin-top: 0; text-align: center; font-size: 1.3rem; margin-bottom: 20px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: #86868b; }
         .form-group input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            padding: 14px;
+            border: 1px solid #424245;
+            background-color: #2c2c2e;
+            color: #fff;
+            border-radius: 8px;
             font-size: 1rem;
             box-sizing: border-box;
+            transition: border-color 0.2s;
         }
-        .form-group input:focus { border-color: #0071e3; outline: none; }
+        .form-group input:focus { border-color: #0a84ff; outline: none; }
+        
         .btn-buy {
             display: block;
             width: 100%;
             background-color: #0071e3;
             color: white;
-            padding: 15px;
-            font-size: 1.2rem;
+            padding: 16px;
+            font-size: 1.15rem;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: bold;
-            transition: background 0.3s;
+            transition: background 0.2s, transform 0.1s;
             border: none;
             cursor: pointer;
-            margin-top: 10px;
         }
-        .btn-buy:hover { background-color: #005bb5; }
-        footer { text-align: center; padding: 20px; color: #777; font-size: 0.9rem; }
+        .btn-buy:hover { background-color: #0077ed; }
+        .btn-buy:active { transform: scale(0.98); }
+
+        /* БЛОК ВІДГУКІВ */
+        .reviews-section {
+            margin-top: 40px;
+            text-align: left;
+        }
+        .review-card {
+            background: #1c1c1e;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #2d2d2f;
+        }
+        .review-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
+        .review-name { font-weight: bold; color: #fff; }
+        .review-stars { color: #ffd60a; }
+        .review-text { color: #bfbfc3; font-size: 0.95rem; font-style: italic; }
+
+        footer { text-align: center; padding: 30px; color: #86868b; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>CarPlay Store</h1>
+        <h1>ℹ️ CARPLAY SMART STORE</h1>
     </header>
 
     <div class="container">
-        <h2>Бездротовий CarPlay Адаптер 2026</h2>
-        <p>Перетвори свій дротовий CarPlay на повністю бездротовий за 10 секунд!</p>
+        <h2>Бездротовий CarPlay Адаптер (Mini 2026)</h2>
+        <p class="subtitle">Попрощайся з дротами у своєму авто раз і назавжди</p>
         
-        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=600" alt="CarPlay в авто" class="product-image">
+        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=600" alt="CarPlay Adapter" class="product-image">
 
-        <div class="price">1 999 ₴</div>
+        <div class="price-box">
+            <div class="old-price">2 899 ₴</div>
+            <div class="price">1 999 ₴</div>
+        </div>
 
         <ul class="features">
-            <li>⚡ <strong>Автоматичне підключення</strong> при посадці в авто</li>
-            <li>🎵 <strong>Жодних затримок</strong> у звуці (Bluetooth 5.0 + Wi-Fi 5GHz)</li>
-            <li>📱 <strong>Сумісний</strong> з усіма iPhone, починаючи з 6 серії</li>
-            <li>🔌 <strong>Plug & Play</strong> — просто встав у USB-порт машини</li>
+            <li><span>⚡</span> <strong>Миттєвий старт:</strong> Автоматичне підключення до iPhone за 10-12 секунд після запуску двигуна.</li>
+            <li><span>🎵</span> <strong>Ідеальний звук:</strong> Передача через Wi-Fi 5GHz гарантує відсутність затримок у навігації, треках та дзвінках.</li>
+            <li><span> компактність:</span> Пристрій розміром із запальничку, легко ховається в консолі авто.</li>
+            <li><span>🔌</span> <strong>Plug & Play:</strong> Ніяких розбирань панелі. Просто встав у штатний USB-порт.</li>
         </ul>
 
+        <div class="compatibility">
+            <strong>🚗 Сумісність:</strong> Працює з усіма авто від 2016 року випуску, які мають заводський ДРОТОВИЙ CarPlay (Audi, BMW, Mazda, VW, Toyota, Hyundai, Kia тощо).
+        </div>
+
         <div class="order-form">
-            <h3 style="margin-top: 0; text-align: center;">Оформлення замовлення</h3>
+            <h3>🛍️ Швидке оформлення</h3>
             
             <div class="form-group">
-                <label for="client-name">Твоє Ім'я:</label>
-                <input type="text" id="client-name" placeholder="Наприклад, Олексій" required>
+                <label for="client-name">Ваше Ім'я та Прізвище:</label>
+                <input type="text" id="client-name" placeholder="Іван Іванов" autocomplete="off">
             </div>
             
             <div class="form-group">
-                <label for="client-phone">Номер телефону:</label>
-                <input type="tel" id="client-phone" placeholder="+380" required>
+                <label for="client-phone">Номер телефону (для підтвердження):</label>
+                <input type="tel" id="client-phone" placeholder="+380" value="+380">
             </div>
 
-            <button class="btn-buy" onclick="sendOrder()">Замовити зі знижкою</button>
+            <button class="btn-buy" id="submit-btn" onclick="sendOrder()">ПІДТВЕРДИТИ ЗАМОВЛЕННЯ</button>
+        </div>
+
+        <div class="reviews-section">
+            <h3 style="text-align: center; color: #fff;">💬 Відгуки наших клієнтів</h3>
+            
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="review-name">Максим (Київ) — Власник Volkswagen Golf</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <div class="review-text">"Штука топ. Раніше бісило постійно шнур втикати, телефон грівся. Зараз сідаю, телефон у кишені, а музика і Waze вже на екрані. Рекомендую!"</div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="review-name">Артем (Львів) — Власник Mazda CX-5</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <div class="review-text">"Підключив за хвилину. Затримки звуку при перемиканні треків майже немає. Магазину дякую за швидку відправку."</div>
+            </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 CarPlay Store. Усі права захищено.</p>
+        <p>&copy; 2026 CarPlay Store. Преміальні автомобільні аксесуари.<br>Доставка Новою Поштою по всій Україні 1-2 дні.</p>
     </footer>
 
     <script>
+        // БЕКЕНД ЛОГІКА: ВІДПРАВКА В TELEGRAM З ПОКРАЩЕНИМ ФОРМАТУВАННЯМ
         function sendOrder() {
-            var name = document.getElementById('client-name').value;
-            var phone = document.getElementById('client-phone').value;
+            var nameField = document.getElementById('client-name');
+            var phoneField = document.getElementById('client-phone');
+            var btn = document.getElementById('submit-btn');
 
-            if(name === "" || phone === "") {
-                alert("Будь ласка, заповніть усі поля!");
+            var name = nameField.value.trim();
+            var phone = phoneField.value.trim();
+
+            // Перевірка на заповненість полів
+            if(name === "") {
+                alert("Будь ласка, введіть ваше ім'я.");
+                nameField.focus();
+                return;
+            }
+            if(phone === "" || phone === "+380" || phone.length < 10) {
+                alert("Будь ласка, введіть коректний номер телефону.");
+                phoneField.focus();
                 return;
             }
 
-            // --- НАЛАШТУВАННЯ TELEGRAM (ЗАМІНИ ДАНІ НИЖЧЕ) ---
+            // Блокуємо кнопку, щоб клієнт не клацнув 10 разів поспіль
+            btn.disabled = true;
+            btn.innerText = "ОБРОБКА...";
+
+            // НАЛАШТУВАННЯ TELEGRAM (ВСТАВ СВОЇ ДАНІ НИЖЧЕ)
             var token = "8972349399:AAHIwA3nw81WzglWIJzIFV5GJWdnqN4rXkU"; 
             var chat_id = "747999482";
             
-            // Формуємо текст повідомлення
-            var text = "🚀 Нове замовлення CarPlay!\n\n👤 Ім'я: " + name + "\n📞 Телефон: " + phone;
+            // Форматуємо красивий текст повідомлення (використовуємо Markdown)
+            var text = "🔥 *НОВЕ ЗАМОВЛЕННЯ НА САЙТІ* 🔥\n\n" +
+                       "📦 *Товар:* CarPlay Adapter (Mini 2026)\n" +
+                       "💰 *Сума:* 1 999 ₴\n\n" +
+                       "👤 *Клієнт:* " + name + "\n" +
+                       "📞 *Телефон:* `" + phone + "`\n\n" +
+                       "⚡ _Зв'яжіться з клієнтом якомога швидше!_";
 
-            // URL для відправки запиту в Telegram API
-            var url = "https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chat_id + "&text=" + encodeURIComponent(text);
+            // URL запиту з підтримкою форматування тегів (parse_mode=Markdown)
+            var url = "https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chat_id + "&parse_mode=Markdown&text=" + encodeURIComponent(text);
 
-            // Спеціальний код, який непомітно для користувача відправляє дані на сервер Telegram
             fetch(url)
             .then(response => {
                 if(response.ok) {
-                    alert("Дякуємо! Замовлення успішно оформлено. Ми зв'яжемося з вами найближчим часом.");
-                    // Очищаємо поля форми після успіху
-                    document.getElementById('client-name').value = "";
-                    document.getElementById('client-phone').value = "";
+                    alert("🎉 Замовлення успішно прийнято! Наш менеджер вже зателефонує вам для підтвердження доставки.");
+                    // Очищаємо форму
+                    nameField.value = "";
+                    phoneField.value = "+380";
                 } else {
-                    alert("Помилка відправки. Перевірте токен та chat_id.");
+                    alert("Сталася помилка на сервері. Спробуйте ще раз.");
                 }
             })
             .catch(error => {
-                alert("Сталася помилка з'єднання з сервером.");
+                alert("Помилка з'єднання з інтернетом.");
+            })
+            .finally(() => {
+                // Повертаємо кнопку в робочий стан
+                btn.disabled = false;
+                btn.innerText = "ПІДТВЕРДИТИ ЗАМОВЛЕННЯ";
             });
         }
-    </script>
+    </script> 
 
 </body>
 </html>
